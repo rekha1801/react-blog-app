@@ -1,0 +1,24 @@
+{
+  "posts": [
+    {
+      "title": "Food",
+      "description": "The POST request is used to send data to an endpoint. For example, if we have a registration page where users submit their information, this information can be sent as JSON to the endpoint we specify using a POST JSON request.",
+      "category": "Food",
+      "imageUrl": "",
+      "date": "09/05/2022",
+      "id": 1
+    },
+    {
+      "image": "/images/Blog.jpg",
+      "id": 2
+    },
+    {
+      "title": "Blog",
+      "description": "The POST request is used to send data to an endpoint. For example, if we have a registration page where users submit their information, this information can be sent as JSON to the endpoint we specify using a POST JSON request.",
+      "category": "Fitness",
+      "image": "/images/Blog.jpg",
+      "date": "09/05/2022",
+      "id": 3
+    }
+  ]
+}
