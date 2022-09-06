@@ -2,22 +2,45 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MDBValidation, MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../index.css";
 
 const initialState = {
   title: "",
   description: "",
   category: "",
-  imageUrl: "",
+  image: "",
 };
 const options = ["Fitness", "Sports", "Food"];
 
 export default function AddEdit() {
   const [formValue, setFormValue] = useState(initialState);
+  const [edit, setEdit] = useState(false);
   const [categoryErrMsg, setCategoryErrMsg] = useState(null);
   const { title, description, category, image } = formValue;
+
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      setEdit(true);
+      getSingleBlog(id);
+    } else {
+      setEdit(false);
+      setFormValue({ ...initialState });
+    }
+  }, [id]);
+
+  const getSingleBlog = async (id) => {
+    const singleBlog = await axios.get(` http://localhost:3000/posts/${id}`);
+    console.log(singleBlog.data);
+    if (singleBlog.status === 200) {
+      setFormValue({ ...singleBlog.data });
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
 
   const getDate = () => {
     let today = new Date();
@@ -27,25 +50,42 @@ export default function AddEdit() {
     today = mm + "/" + dd + "/" + yyyy;
     return today;
   };
+  //to Submit the form perform the operations:
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!category) {
       setCategoryErrMsg("Please select a category");
     }
-    //&& imageUrl
+    //if the edit is true then update the formvalue else post it as a new one.
+    //const imageValidation = !edit ? image : true;
+
     if (title && description && category && image) {
       const currentDate = getDate();
-      const updatedBlogData = { ...formValue, date: currentDate };
-      const response = await axios.post(
-        " http://localhost:3000/posts",
-        updatedBlogData
-      );
-      if (response.status === 201) {
-        toast.success("Blog created successfully");
+      if (!edit) {
+        const updatedBlogData = { ...formValue, date: currentDate };
+        const response = await axios.post(
+          " http://localhost:3000/posts",
+          updatedBlogData
+        );
+        if (response.status === 201) {
+          toast.success("Blog created successfully");
+        } else {
+          toast.error("Something went wrong");
+        }
       } else {
-        toast.error("Something went wrong");
+        const response = await axios.put(
+          `http://localhost:3000/posts/${id}`,
+          formValue
+        );
+        if (response.status === 200) {
+          toast.success("Blog updated successfully");
+        } else {
+          toast.error("Something went wrong");
+        }
       }
-      setFormValue({ title: "", description: "", category: "" });
+
+      //setFormValue({ title: "", description: "", category: "", image: "" });
+      navigate("/");
     }
   };
   const onInputChange = (e) => {
@@ -54,24 +94,13 @@ export default function AddEdit() {
   };
   const onUploadImage = (file) => {
     console.log("file", file);
-    axios
-      .post("http://localhost:3000/posts", {
-        image: `/images/${file.name}`,
-      })
-      .then((resp) => {
-        console.log(resp.data.image);
-        toast.info("Image uploaded successfully");
-        setFormValue({ ...formValue, image: resp.data.image });
-      });
+    toast.info("Image uploaded successfully");
+    setFormValue({ ...formValue, image: `/images/${file.name}` });
   };
   const onCategoryChange = (e) => {
     setCategoryErrMsg(null);
     setFormValue({ ...formValue, category: e.target.value });
   };
-
-  //   useEffect(() => {
-  //     axios.get("http://localhost:3000/posts").then((res) => console.log(res));
-  //   }, []);
 
   return (
     <MDBValidation
@@ -80,7 +109,7 @@ export default function AddEdit() {
       noValidate
       onSubmit={handleSubmit}
     >
-      <p className="fs-2 fw-bold">Add Blog</p>
+      <p className="fs-2 fw-bold">{edit ? "Update Blog" : "Add Blog"}</p>
       <div
         style={{
           margin: "auto",
@@ -113,16 +142,22 @@ export default function AddEdit() {
           invalid
         ></MDBInput>
         <br />
-        <MDBInput
-          type="file"
-          onChange={(e) => {
-            onUploadImage(e.target.files[0]);
-          }}
-          required
-          validation="Please provide a title"
-          invalid
-        ></MDBInput>
-        <br />
+        {!edit && (
+          <>
+            <MDBInput
+              type="file"
+              onChange={(e) => {
+                onUploadImage(e.target.files[0]);
+              }}
+              required
+              validation="Please provide a title"
+              invalid
+            ></MDBInput>
+
+            <br />
+          </>
+        )}
+
         <select
           className="categoryDropdown"
           onChange={onCategoryChange}
@@ -143,7 +178,7 @@ export default function AddEdit() {
         <br />
         <br />
         <MDBBtn type="submit" style={{ marginRight: "10px" }}>
-          Add
+          {edit ? "Update" : "Add"}
         </MDBBtn>
         <MDBBtn
           color="danger"
