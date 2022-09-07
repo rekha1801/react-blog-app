@@ -16,22 +16,27 @@ import axios from "axios";
 import Badge from "../components/Badge";
 import { toast } from "react-toastify";
 
+//to initialize all the state varaibles.
 export default function SingleBlog() {
   const [blog, setBlog] = useState([]);
   const [relatedPost, setRelatedPost] = useState([]);
   const { id } = useParams();
 
+  //to load the data on the page by passing the ID in the URL
   useEffect(() => {
     if (id) {
       getSingleBlog();
     }
   }, [id]);
 
+  //to get the single Blog using the id from useParams in the URL
   const getSingleBlog = async () => {
     const response = await axios.get(`http://localhost:3000/posts/${id}`);
     const relatedPostData = await axios.get(
       `http://localhost:3000/posts?category=${response.data.category}&_start=0&_end=3`
     );
+
+    //setting the related post by passing the category in the URL
     setRelatedPost(relatedPostData.data);
     if (response.status === 200 || relatedPostData.status === 200) {
       setBlog(response.data);
@@ -41,23 +46,31 @@ export default function SingleBlog() {
     }
   };
   console.log(relatedPost);
+
+  //to set the styleInfo for the badge
+  //to give each category style and color
   const styleInfo = {
     display: "inline",
-    marginLeft: "5px",
+    marginLeft: "15px",
     float: "right",
-    marginTop: "7px",
+    marginTop: "17px",
   };
+
+  //to extract a piece of description and the rest added as "..."
+  // to read more, click on the read more link
   const excerpt = (str) => {
     if (str.length > 60) {
       str = str.substring(0, 60) + " ... ";
     }
     return str;
   };
+
+  //to display the container with the GoBack link, title, image, description and date
   return (
     <MDBContainer style={{ border: "1px solid #d1ebe8" }}>
       <Link to="/">
-        <strong style={{ float: "left", color: "black" }} className="mt-3">
-          Go BACK
+        <strong style={{ float: "left", color: "red" }} className="mt-3">
+          Go Back
         </strong>
       </Link>
 
@@ -90,10 +103,13 @@ export default function SingleBlog() {
           </strong>
           <Badge style={styleInfo}>{blog && blog.category}</Badge>
         </div>
-        <MDBTypography className="lead md-0">
+        <MDBTypography className="text-muted lead md-0">
           {blog && blog.description}
         </MDBTypography>
       </div>
+
+      {/* to show the related post under each singleBlog.
+      If there is no related post don't show the related post topic */}
       {relatedPost && relatedPost.length > 0 && (
         <>
           {relatedPost.length > 1 && <h1>Related Post</h1>}

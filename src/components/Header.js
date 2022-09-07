@@ -16,11 +16,11 @@ export default function Header() {
 
   return (
     <div>
-      <MDBNavbar expand="lg" light style={{ backgroundColor: "#009688" }}>
+      <MDBNavbar expand="lg" light style={{ backgroundColor: "#8bc34a" }}>
         <MDBContainer fluid>
           <MDBNavbarBrand href="/">
             <img
-              src="/images/Logo.jpg"
+              src="/images/images.jpeg"
               alt="Logo"
               style={{ height: "50px", width: "150px", borderRadius: "10px" }}
             />

@@ -84,7 +84,7 @@ export default function AddEdit() {
         }
       }
 
-      //setFormValue({ title: "", description: "", category: "", image: "" });
+      setFormValue({ title: "", description: "", category: "", image: "" });
       navigate("/");
     }
   };
@@ -150,7 +150,7 @@ export default function AddEdit() {
                 onUploadImage(e.target.files[0]);
               }}
               required
-              validation="Please provide a title"
+              validation="Please provide an image"
               invalid
             ></MDBInput>
 

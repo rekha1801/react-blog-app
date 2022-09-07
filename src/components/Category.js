@@ -1,4 +1,5 @@
 import React from "react";
+
 import { MDBCard, MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 
 export default function Category({ handleCategory, options }) {
