@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+##Description about the project
+
+1. First add the blog by clicking on the AddBlog link
+2. Then enter the input fields, load an image and select a category
+3. then click on the add button to add the blog.
+4. Blogs are now created and can view the single blog by clicking on the read more link.
+5. Navigate again to the home page by clicking the on the Go Back button.
+6. Click on the trash icon to the delete a blog
+7. udpate the current blog by clicking on the edit icon on the blog.
+8. on each single blog, can view the related post to the same category
+9. on the home page is the list of the latest blogs.
+10. on the home page is the categories list to view only the particular category blogs.

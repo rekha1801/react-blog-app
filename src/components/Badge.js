@@ -6,6 +6,7 @@ export default function Badge({ children, styleInfo }) {
     Food: "warning",
     Fitness: "primary",
     Sports: "success",
+    Gardening: "info",
   };
   return (
     <h5 style={styleInfo}>

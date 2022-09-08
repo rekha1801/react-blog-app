@@ -11,7 +11,7 @@ const initialState = {
   category: "",
   image: "",
 };
-const options = ["Fitness", "Sports", "Food"];
+const options = ["Fitness", "Sports", "Food", "Gardening"];
 
 export default function AddEdit() {
   const [formValue, setFormValue] = useState(initialState);
@@ -57,7 +57,6 @@ export default function AddEdit() {
       setCategoryErrMsg("Please select a category");
     }
     //if the edit is true then update the formvalue else post it as a new one.
-    //const imageValidation = !edit ? image : true;
 
     if (title && description && category && image) {
       const currentDate = getDate();
@@ -88,15 +87,18 @@ export default function AddEdit() {
       navigate("/");
     }
   };
+  //When the input fields changes:
   const onInputChange = (e) => {
     let { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
   };
+  //When the image is updated generate a message:
   const onUploadImage = (file) => {
     console.log("file", file);
     toast.info("Image uploaded successfully");
     setFormValue({ ...formValue, image: `/images/${file.name}` });
   };
+  //When the categroy drop down changes:
   const onCategoryChange = (e) => {
     setCategoryErrMsg(null);
     setFormValue({ ...formValue, category: e.target.value });
@@ -150,7 +152,7 @@ export default function AddEdit() {
                 onUploadImage(e.target.files[0]);
               }}
               required
-              validation="Please provide an image"
+              validation="Please upload an image"
               invalid
             ></MDBInput>
 

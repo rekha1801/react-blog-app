@@ -21,14 +21,16 @@ export default function Blogs({
   excerpt,
   handleDelete,
 }) {
+  //JSX To create the cards and
+  //display title,description, badge, delete and update icons.
   return (
     <MDBCol size="4">
-      <MDBCard className="h-100 mt-2" style={{ maxWidth: "22rem" }}>
+      <MDBCard className="h-180 mt-3" style={{ maxWidth: "22rem" }}>
         <MDBCardImage
           src={image}
           alt={title}
           position="top"
-          style={{ maxWidth: "100%", height: "100px" }}
+          style={{ maxWidth: "100%", height: "120px" }}
         />
         <MDBCardBody>
           <MDBCardTitle>{title}</MDBCardTitle>

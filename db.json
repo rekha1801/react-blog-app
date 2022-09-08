@@ -9,14 +9,6 @@
       "id": 5
     },
     {
-      "title": "Fitness New",
-      "description": "The POST request is used to send data to an endpoint. For example, if we have a registration page where users submit their information, this information can be sent as JSON to the endpoint we specify using a POST JSON request.",
-      "category": "Fitness",
-      "image": "/images/Fitness1.jpg",
-      "date": "09/06/2022",
-      "id": 6
-    },
-    {
       "title": "Food",
       "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
       "category": "Food",
@@ -25,12 +17,36 @@
       "id": 8
     },
     {
-      "title": "Yoga",
-      "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+      "title": "Fitness",
+      "description": "\"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?\"",
       "category": "Fitness",
-      "image": "/images/sport-fitness.jpg",
+      "image": "/images/fitness1.jpeg",
       "date": "09/07/2022",
-      "id": 9
+      "id": 10
+    },
+    {
+      "title": "Garden New",
+      "description": "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.",
+      "category": "Gardening",
+      "image": "/images/garden1.jpeg",
+      "date": "09/07/2022",
+      "id": 11
+    },
+    {
+      "title": "Eat Healthy",
+      "description": "My school offers a big menu, so we have  plenty choices. At first you can have a soup or a salad, it depends on your mood. You always can pick between a vegetarian, sweet or a main dish with meat. These three choices of meals are daily on the menu. I would say it is a very extensive menu.  On Friday you can find a lot of fish. ",
+      "category": "Food",
+      "image": "/images/Food1.jpeg",
+      "date": "09/08/2022",
+      "id": 13
+    },
+    {
+      "title": "Yoga",
+      "description": "\"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?\"",
+      "category": "Fitness",
+      "image": "/images/fitness.jpeg",
+      "date": "09/08/2022",
+      "id": 14
     }
   ]
 }

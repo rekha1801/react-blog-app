@@ -13,7 +13,7 @@ export default function Home() {
   const [searchValue, setSearchValue] = useState("");
   const [totalBlog, setTotalBlog] = useState(null);
 
-  const options = ["Fitness", "Sports", "Food", "Garden"];
+  const options = ["Fitness", "Sports", "Food", "Gardening"];
 
   //During the first load of the page, load all the data and fetch the latest blog
   useEffect(() => {
