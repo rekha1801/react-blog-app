@@ -5,7 +5,7 @@ import { MDBCard, MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 export default function Category({ handleCategory, options }) {
   return (
     <div>
-      <MDBCard style={{ width: "18rem", marginTop: "20px" }}>
+      <MDBCard style={{ width: "20rem", marginTop: "20px" }}>
         <h4>Categories</h4>
         <MDBListGroup>
           {options.map((item, index) => {

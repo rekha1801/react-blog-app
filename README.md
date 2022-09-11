@@ -1,3 +1,46 @@
+<!-- docker build -t react/docker .
+
+docker build -t jserver/docker . -f server.Dockerfile
+
+docker run -it -p 3000:8080 jserver/docker db.json
+
+docker run -it -p 3001:3000 react/docker npm start -->
+
+<!-- server.Dockerfile
+FROM node:latest
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+RUN npm install -g json-server
+COPY ./db.json /usr/src/app
+ENTRYPOINT ["json-server", "--port", "8080", "--host", "0.0.0.0"] -->
+
+<!-- Dockerfile
+FROM node:latest
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app/
+RUN npm install
+ADD src /usr/src/app/src
+ADD public /usr/src/app/public
+EXPOSE 3001
+CMD ['npm', 'start'] -->
+
+<!-- ##================================================ -->
+
+ <!-- (or)=> do this with the docker compose -->
+
+<!--
+##================================================ -->
+
+<!--
+Install docker compose
+sudo apt-get update
+
+sudo apt-get install docker-compose-plugin
+
+compose
+docker compose up -->
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,7 +112,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-##Description about the project
+##Description about the project 0. json-server --watch db.json => run this command to listen to the JSON server
 
 1. First add the blog by clicking on the AddBlog link
 2. Then enter the input fields, load an image and select a category

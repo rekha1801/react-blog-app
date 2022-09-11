@@ -6,28 +6,40 @@ import Blogs from "../components/Blogs";
 import Search from "../components/Search";
 import Category from "../components/Category";
 import LatestBlog from "../components/LatestBlog";
+import Pagination from "../components/Pagination";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [latestBlogData, setLatestBlogData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [totalBlog, setTotalBlog] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageLimit] = useState(5);
 
   const options = ["Fitness", "Sports", "Food", "Gardening"];
 
   //During the first load of the page, load all the data and fetch the latest blog
   useEffect(() => {
-    loadBlogsData();
+    loadBlogsData(0, 5, 0);
     fetchLatestBlog();
   }, []);
 
-  const loadBlogsData = async () => {
+  const loadBlogsData = async (start, end, increase, operation) => {
+    const AllBlogs = await axios.get(" http://localhost:3000/posts");
+    setTotalBlog(AllBlogs.data.length);
     const response = await axios.get(
-      `http://localhost:3000/posts`
-      //`http://localhost:3000/posts?_start=${start}&_end=${end}`
+      //`http://localhost:3000/posts`
+      `http://localhost:3000/posts?_start=${start}&_end=${end}`
     );
+
     if (response.status === 200) {
       setData(response.data);
+      if (operation) {
+        setCurrentPage(0);
+      } else {
+        console.log(currentPage);
+        setCurrentPage(currentPage + increase);
+      }
     } else {
       toast.error("Data has not fetched");
     }
@@ -38,7 +50,7 @@ export default function Home() {
   // and set the start and end in the url to get the last 4 blogs.
   const fetchLatestBlog = async () => {
     const AllBlogs = await axios.get(" http://localhost:3000/posts");
-    setTotalBlog(AllBlogs.data.length);
+    //setTotalBlog(AllBlogs.data.length);
     const start = AllBlogs.data.length - 4;
     const end = AllBlogs.data.length;
 
@@ -59,7 +71,7 @@ export default function Home() {
       const response = await axios.delete(`http://localhost:3000/posts/${id}`);
       if (response.status === 200) {
         toast.success("Deleted successfully");
-        loadBlogsData();
+        loadBlogsData(0, 5, 0, "delete");
       } else {
         toast.error("Something went wrong, blog not deleted");
       }
@@ -79,7 +91,8 @@ export default function Home() {
   //the input field changes and loads data accordingly.
   const onInputChange = (e) => {
     if (!e.target.value) {
-      loadBlogsData(); //no search value given, load all data
+      loadBlogsData(0, 5, 0); //no search value given, load all data
+      setSearchValue("");
     } else {
       setSearchValue(e.target.value); // set the search value and load only that data
     }
@@ -166,6 +179,15 @@ export default function Home() {
           <Category handleCategory={handleCategory} options={options} />
         </MDBCol>
       </MDBRow>
+      <div className="mt-3">
+        <Pagination
+          currentPage={currentPage}
+          pageLimit={pageLimit}
+          loadBlogsData={loadBlogsData}
+          data={data}
+          totalBlog={totalBlog}
+        />
+      </div>
     </>
   );
 }

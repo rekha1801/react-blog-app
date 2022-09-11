@@ -8,11 +8,11 @@ export default function Search({ handleSearch, searchValue, onInputChange }) {
         <input
           type="search"
           className="form-control"
-          placeholder="search blog..."
+          placeholder="Search Blog..."
           value={searchValue}
           onChange={onInputChange}
         />
-        <MDBBtn>Search</MDBBtn>
+        <MDBBtn type="submit">Search</MDBBtn>
       </form>
     </div>
   );

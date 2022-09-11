@@ -12,7 +12,7 @@ export default function LatestBlog({ image, title, id }) {
   return (
     <div>
       <Link to={`/blog/${id}`}>
-        <MDBCard style={{ maxWidth: "300px", height: "80px" }} className="mt-2">
+        <MDBCard style={{ maxWidth: "320px", height: "80px" }} className="mt-3">
           <MDBRow className="g-0">
             <MDBCol md="3">
               <MDBCardImage

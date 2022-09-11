@@ -10,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "gh-pages": "^4.0.0",
     "mdb-react-ui-kit": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -23,8 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server":"json-server -- watch db.json --port 5000"
-
+    "server": "json-server -- watch db.json --port 3000"
   },
   "eslintConfig": {
     "extends": [

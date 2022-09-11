@@ -33,7 +33,7 @@ export default function SingleBlog() {
   const getSingleBlog = async () => {
     const response = await axios.get(`http://localhost:3000/posts/${id}`);
     const relatedPostData = await axios.get(
-      `http://localhost:3000/posts?category=${response.data.category}&_start=0&_end=3`
+      `http://localhost:3000/posts?category=${response.data.category}&_start=0&_end=4`
     );
 
     //setting the related post by passing the category in the URL
