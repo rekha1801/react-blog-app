@@ -25,11 +25,11 @@ export default function Home() {
   }, []);
 
   const loadBlogsData = async (start, end, increase, operation) => {
-    const AllBlogs = await axios.get(" http://localhost:3000/posts");
+    const AllBlogs = await axios.get(" http://localhost:5000/posts");
     setTotalBlog(AllBlogs.data.length);
     const response = await axios.get(
-      //`http://localhost:3000/posts`
-      `http://localhost:3000/posts?_start=${start}&_end=${end}`
+      //`http://localhost:5000/posts`
+      `http://localhost:5000/posts?_start=${start}&_end=${end}`
     );
 
     if (response.status === 200) {
@@ -49,14 +49,14 @@ export default function Home() {
   //To fetch the latest blog data, get the total length of the blogs
   // and set the start and end in the url to get the last 4 blogs.
   const fetchLatestBlog = async () => {
-    const AllBlogs = await axios.get(" http://localhost:3000/posts");
+    const AllBlogs = await axios.get(" http://localhost:5000/posts");
     //setTotalBlog(AllBlogs.data.length);
     const start = AllBlogs.data.length - 4;
     const end = AllBlogs.data.length;
 
     // again getting the blogs using the start and end query in the URL
     const response = await axios.get(
-      `http://localhost:3000/posts?_start=${start}&_end=${end}`
+      `http://localhost:5000/posts?_start=${start}&_end=${end}`
     );
     if (response.status === 200) {
       setLatestBlogData(response.data);
@@ -65,10 +65,10 @@ export default function Home() {
     }
   };
 
-  // when the trash icon is clicked, delete by axios passing the id in the URL
-  const handleDelete = async (id) => {
+  // when the trash icon is clicked, delete by axios passing the _id in the URL
+  const handleDelete = async (_id) => {
     if (window.confirm("Are you sure to delete???")) {
-      const response = await axios.delete(`http://localhost:3000/posts/${id}`);
+      const response = await axios.delete(`http://localhost:5000/posts/${_id}`);
       if (response.status === 200) {
         toast.success("Deleted successfully");
         loadBlogsData(0, 5, 0, "delete");
@@ -104,7 +104,7 @@ export default function Home() {
   const handleSearch = async (e) => {
     e.preventDefault();
     const response = await axios.get(
-      `http://localhost:3000/posts?q=${searchValue}`
+      `http://localhost:5000/posts?q=${searchValue}`
     );
     if (response.status === 200) {
       setData(response.data);
@@ -117,7 +117,7 @@ export default function Home() {
   // get the data using axios according to the category in the URL
   const handleCategory = async (category) => {
     const response = await axios.get(
-      `http://localhost:3000/posts?category=${category}`
+      `http://localhost:5000/posts?category=${category}`
     );
     if (response.status === 200) {
       setData(response.data);
@@ -157,7 +157,7 @@ export default function Home() {
                       key={index}
                       {...item}
                       excerpt={() => excerpt(item.description)} // to show only a piece of details and rest by clicking on read more
-                      handleDelete={() => handleDelete(item.id)} // delete by passing the id in the URL
+                      handleDelete={() => handleDelete(item._id)} // delete by passing the _id in the URL
                     />
                   );
                 })}

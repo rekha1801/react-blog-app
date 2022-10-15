@@ -20,20 +20,20 @@ import { toast } from "react-toastify";
 export default function SingleBlog() {
   const [blog, setBlog] = useState([]);
   const [relatedPost, setRelatedPost] = useState([]);
-  const { id } = useParams();
+  const { _id } = useParams();
 
   //to load the data on the page by passing the ID in the URL
   useEffect(() => {
-    if (id) {
+    if (_id) {
       getSingleBlog();
     }
-  }, [id]);
+  }, [_id]);
 
   //to get the single Blog using the id from useParams in the URL
   const getSingleBlog = async () => {
-    const response = await axios.get(`http://localhost:3000/posts/${id}`);
+    const response = await axios.get(`http://localhost:5000/posts/${_id}`);
     const relatedPostData = await axios.get(
-      `http://localhost:3000/posts?category=${response.data.category}&_start=0&_end=4`
+      `http://localhost:5000/posts?category=${response.data.category}&_start=0&_end=4`
     );
 
     //setting the related post by passing the category in the URL
@@ -115,12 +115,12 @@ export default function SingleBlog() {
           {relatedPost.length > 1 && <h1>Related Post</h1>}
           <MDBRow className="row-cols-1 row-cols-md-3 g-4">
             {relatedPost
-              .filter((item) => item.id !== parseInt(id))
+              .filter((item) => item._id !== parseInt(_id))
               .map((item, index) => {
                 return (
                   <MDBCol>
                     <MDBCard>
-                      <Link key={index} to={`/blog/${item.id}`}>
+                      <Link key={index} to={`/blog/${item._id}`}>
                         <MDBCardImage
                           src={item.image}
                           alt={item.title}

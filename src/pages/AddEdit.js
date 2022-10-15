@@ -20,20 +20,20 @@ export default function AddEdit() {
   const { title, description, category, image } = formValue;
 
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { _id } = useParams();
 
   useEffect(() => {
-    if (id) {
+    if (_id) {
       setEdit(true);
-      getSingleBlog(id);
+      getSingleBlog(_id);
     } else {
       setEdit(false);
       setFormValue({ ...initialState });
     }
-  }, [id]);
+  }, [_id]);
 
   const getSingleBlog = async (id) => {
-    const singleBlog = await axios.get(` http://localhost:3000/posts/${id}`);
+    const singleBlog = await axios.get(` http://localhost:5000/posts/${_id}`);
     console.log(singleBlog.data);
     if (singleBlog.status === 200) {
       setFormValue({ ...singleBlog.data });
@@ -63,7 +63,7 @@ export default function AddEdit() {
       if (!edit) {
         const updatedBlogData = { ...formValue, date: currentDate };
         const response = await axios.post(
-          " http://localhost:3000/posts",
+          " http://localhost:5000/posts",
           updatedBlogData
         );
         if (response.status === 201) {
@@ -73,7 +73,7 @@ export default function AddEdit() {
         }
       } else {
         const response = await axios.put(
-          `http://localhost:3000/posts/${id}`,
+          `http://localhost:5000/posts/${_id}`,
           formValue
         );
         if (response.status === 200) {

@@ -17,7 +17,7 @@ export default function Blogs({
   description,
   category,
   image,
-  id,
+  _id,
   excerpt,
   handleDelete,
 }) {
@@ -36,7 +36,7 @@ export default function Blogs({
           <MDBCardTitle>{title}</MDBCardTitle>
           <MDBCardText>
             {excerpt(description)}
-            <Link to={`/blog/${id}`}>Read More</Link>
+            <Link to={`/blog/${_id}`}>Read More</Link>
           </MDBCardText>
           <Badge>{category}</Badge>
           <span>
@@ -44,7 +44,7 @@ export default function Blogs({
               className="mt-1"
               tag="a"
               color="none"
-              onClick={() => handleDelete(id)}
+              onClick={() => handleDelete(_id)}
             >
               <MDBIcon
                 fas
@@ -53,7 +53,7 @@ export default function Blogs({
                 size="lg"
               />
             </MDBBtn>
-            <Link to={`/editblog/${id}`}>
+            <Link to={`/editblog/${_id}`}>
               <MDBIcon
                 fas
                 icon="edit"
