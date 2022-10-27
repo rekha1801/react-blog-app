@@ -8,10 +8,10 @@ import {
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 
-export default function LatestBlog({ image, title, id }) {
+export default function LatestBlog({ image, title, _id }) {
   return (
     <div>
-      <Link to={`/blog/${id}`}>
+      <Link to={`/blog/${_id}`}>
         <MDBCard style={{ maxWidth: "320px", height: "80px" }} className="mt-3">
           <MDBRow className="g-0">
             <MDBCol md="3">

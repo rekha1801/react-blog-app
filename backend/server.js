@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/posts", postRouter);
+
 const port = process.env.PORT;
 
 mongoose

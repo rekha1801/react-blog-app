@@ -20,20 +20,21 @@ export default function AddEdit() {
   const { title, description, category, image } = formValue;
 
   const navigate = useNavigate();
-  const { _id } = useParams();
+  const { id } = useParams();
 
+  console.log(id);
   useEffect(() => {
-    if (_id) {
+    if (id) {
       setEdit(true);
-      getSingleBlog(_id);
+      getSingleBlog(id);
     } else {
       setEdit(false);
       setFormValue({ ...initialState });
     }
-  }, [_id]);
+  }, [id]);
 
   const getSingleBlog = async (id) => {
-    const singleBlog = await axios.get(` http://localhost:5000/posts/${_id}`);
+    const singleBlog = await axios.get(`http://localhost:5000/posts/${id}`);
     console.log(singleBlog.data);
     if (singleBlog.status === 200) {
       setFormValue({ ...singleBlog.data });
@@ -63,9 +64,10 @@ export default function AddEdit() {
       if (!edit) {
         const updatedBlogData = { ...formValue, date: currentDate };
         const response = await axios.post(
-          " http://localhost:5000/posts",
+          "http://localhost:5000/posts",
           updatedBlogData
         );
+
         if (response.status === 201) {
           toast.success("Blog created successfully");
         } else {
@@ -73,10 +75,11 @@ export default function AddEdit() {
         }
       } else {
         const response = await axios.put(
-          `http://localhost:5000/posts/${_id}`,
+          `http://localhost:5000/posts/${id}`,
           formValue
         );
-        if (response.status === 200) {
+
+        if (response.status === 201) {
           toast.success("Blog updated successfully");
         } else {
           toast.error("Something went wrong");

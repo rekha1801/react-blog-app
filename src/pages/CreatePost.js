@@ -7,14 +7,14 @@ export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [postText, setPostText] = useState("");
 
-  const postsCollectionRef = collection(db, "posts");
-  const createPost = async () => {
-    await addDoc(postsCollectionRef, {
-      title,
-      postText,
-      author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
-    });
-  };
+  // const postsCollectionRef = collection(db, "posts");
+  // const createPost = async () => {
+  //   await addDoc(postsCollectionRef, {
+  //     title,
+  //     postText,
+  //     author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
+  //   });
+  // };
 
   return (
     <div className="createPostPage">

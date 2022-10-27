@@ -20,22 +20,23 @@ import { toast } from "react-toastify";
 export default function SingleBlog() {
   const [blog, setBlog] = useState([]);
   const [relatedPost, setRelatedPost] = useState([]);
-  const { _id } = useParams();
+  const { id } = useParams();
 
   //to load the data on the page by passing the ID in the URL
   useEffect(() => {
-    if (_id) {
+    if (id) {
       getSingleBlog();
     }
-  }, [_id]);
+  }, [id]);
 
   //to get the single Blog using the id from useParams in the URL
   const getSingleBlog = async () => {
-    const response = await axios.get(`http://localhost:5000/posts/${_id}`);
-    const relatedPostData = await axios.get(
-      `http://localhost:5000/posts?category=${response.data.category}&_start=0&_end=4`
-    );
+    const response = await axios.get(`http://localhost:5000/posts/${id}`);
 
+    const relatedPostData = await axios.get(
+      `http://localhost:5000/posts/?category=${response.data.category}&_start=0&_end=4`
+    );
+    console.log(relatedPostData);
     //setting the related post by passing the category in the URL
     setRelatedPost(relatedPostData.data);
     if (response.status === 200 || relatedPostData.status === 200) {
@@ -115,7 +116,7 @@ export default function SingleBlog() {
           {relatedPost.length > 1 && <h1>Related Post</h1>}
           <MDBRow className="row-cols-1 row-cols-md-3 g-4">
             {relatedPost
-              .filter((item) => item._id !== parseInt(_id))
+              .filter((item) => item._id !== parseInt(id))
               .map((item, index) => {
                 return (
                   <MDBCol>

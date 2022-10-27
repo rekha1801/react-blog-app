@@ -86,7 +86,14 @@ function App() {
                       <button onClick={signUserOut}>LogOut</button>
                     )}
                   </MDBNavbarItem> */}
-
+                  <MDBNavbarItem>
+                    <NavLink
+                      to="/addblog"
+                      style={{ color: "#fff", padding: "10px" }}
+                    >
+                      Add Blog
+                    </NavLink>
+                  </MDBNavbarItem>
                   <MDBNavbarItem>
                     <NavLink
                       to="/about"
