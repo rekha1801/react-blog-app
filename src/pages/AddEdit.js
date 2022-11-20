@@ -34,8 +34,17 @@ export default function AddEdit() {
   }, [id]);
 
   const getSingleBlog = async (id) => {
-    const singleBlog = await axios.get(`http://localhost:5000/posts/${id}`);
-    console.log(singleBlog.data);
+    const singleBlog = await axios.get(
+      `${process.env.REACT_APP_BE_URL}/posts/${id}`,
+      {
+        headers: {
+          authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).data.token
+          }`,
+        },
+      }
+    );
+    // console.log(singleBlog);
     if (singleBlog.status === 200) {
       setFormValue({ ...singleBlog.data });
     } else {
@@ -57,15 +66,22 @@ export default function AddEdit() {
     if (!category) {
       setCategoryErrMsg("Please select a category");
     }
-    //if the edit is true then update the formvalue else post it as a new one.
+    //if the edit is true then update the form value else post it as a new one.
 
     if (title && description && category && image) {
       const currentDate = getDate();
       if (!edit) {
         const updatedBlogData = { ...formValue, date: currentDate };
         const response = await axios.post(
-          "http://localhost:5000/posts",
-          updatedBlogData
+          `${process.env.REACT_APP_BE_URL}/posts`,
+          updatedBlogData,
+          {
+            headers: {
+              authorization: `Bearer ${
+                JSON.parse(localStorage.getItem("user")).data.token
+              }`,
+            },
+          }
         );
 
         if (response.status === 201) {
@@ -74,11 +90,19 @@ export default function AddEdit() {
           toast.error("Something went wrong");
         }
       } else {
+        console.log("inside else part of put");
         const response = await axios.put(
-          `http://localhost:5000/posts/${id}`,
-          formValue
+          `${process.env.REACT_APP_BE_URL}/posts/${id}`,
+          formValue,
+          {
+            headers: {
+              authorization: `Bearer ${
+                JSON.parse(localStorage.getItem("user")).data.token
+              }`,
+            },
+          }
         );
-
+        console.log(response);
         if (response.status === 201) {
           toast.success("Blog updated successfully");
         } else {

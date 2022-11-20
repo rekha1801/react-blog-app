@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   MDBNavbar,
@@ -44,7 +44,7 @@ export default function Header() {
                   to="/"
                   style={{ color: "#fff", padding: "10px" }}
                 >
-                  Home
+                  HOME
                 </NavLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
@@ -52,12 +52,12 @@ export default function Header() {
                   to="/addblog"
                   style={{ color: "#fff", padding: "10px" }}
                 >
-                  Add Blog
+                  ADD BLOG
                 </NavLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
                 <NavLink to="/about" style={{ color: "#fff", padding: "10px" }}>
-                  About
+                  ABOUT
                 </NavLink>
               </MDBNavbarItem>
             </MDBNavbarNav>

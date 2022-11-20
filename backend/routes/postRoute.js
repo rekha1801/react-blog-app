@@ -5,14 +5,15 @@ import {
   getRoutesById,
   postRoutes,
   updateRoutes,
-} from "../controller/controller.js";
+} from "../controller/postController.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
 router.get("/", getRoutes);
-router.post("/", postRoutes);
-router.get("/:id", getRoutesById);
-router.put("/:id", updateRoutes);
-router.delete("/:id", deleteRoutes);
+router.post("/", verifyToken, postRoutes);
+router.get("/:id", verifyToken, getRoutesById);
+router.put("/:id", verifyToken, updateRoutes);
+router.delete("/:id", verifyToken, deleteRoutes);
 
 export default router;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { MDBRow, MDBCol, MDBTypography, MDBContainer } from "mdb-react-ui-kit";
@@ -7,7 +7,8 @@ import Search from "../components/Search";
 import Category from "../components/Category";
 import LatestBlog from "../components/LatestBlog";
 import Pagination from "../components/Pagination";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Context } from "../context/Context";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -17,26 +18,30 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit] = useState(5);
 
+  const { user } = useContext(Context);
+
   const options = ["Fitness", "Sports", "Food", "Gardening"];
   const location = useLocation();
+  const navigate = useNavigate();
 
   //During the first load of the page, load all the data and fetch the latest blog
   useEffect(() => {
-    loadBlogsData(0, 5, 0);
+    loadBlogsData(0, 6, 0);
     fetchLatestBlog();
   }, []);
 
   const loadBlogsData = async (start, end, increase, operation) => {
-    const AllBlogs = await axios.get("http://localhost:5000/posts");
-    //console.log(AllBlogs.data);
+    const AllBlogs = await axios.get(`${process.env.REACT_APP_BE_URL}/posts`);
+    console.log(AllBlogs.data);
     setTotalBlog(AllBlogs.data.length);
     const response = await axios.get(
-      `http://localhost:5000/posts`
-      //`http://localhost:5000/posts?_start=${start}&_end=${end}`
+      //`http://localhost:5000/posts`
+      `${process.env.REACT_APP_BE_URL}/posts?_startpage=${start}&_endpage=${end}`
     );
 
     if (response.status === 200) {
       setData(response.data);
+
       if (operation) {
         setCurrentPage(0);
       } else {
@@ -47,12 +52,11 @@ export default function Home() {
       toast.error("Data has not fetched");
     }
   };
-  console.log(data);
 
   //To fetch the latest blog data, get the total length of the blogs
   // and set the start and end in the url to get the last 4 blogs.
   const fetchLatestBlog = async () => {
-    const AllBlogs = await axios.get("http://localhost:5000/posts");
+    const AllBlogs = await axios.get(`${process.env.REACT_APP_BE_URL}/posts`);
     //setTotalBlog(AllBlogs.data.length);
     const start = AllBlogs.data.length - 4;
     const end = AllBlogs.data.length;
@@ -62,7 +66,7 @@ export default function Home() {
 
     // again getting the blogs using the start and end query in the URL
     const response = await axios.get(
-      `http://localhost:5000/posts?_start=${start}&_end=${end}`
+      `${process.env.REACT_APP_BE_URL}/posts?_start=${start}&_end=${end}`
     );
     console.log(response);
 
@@ -75,14 +79,27 @@ export default function Home() {
   //console.log(latestBlogData);
   // when the trash icon is clicked, delete by axios passing the _id in the URL
   const handleDelete = async (_id) => {
-    if (window.confirm("Are you sure to delete???")) {
-      const response = await axios.delete(`http://localhost:5000/posts/${_id}`);
-      if (response.status === 200) {
-        toast.success("Deleted successfully");
-        loadBlogsData(0, 5, 0, "delete");
-      } else {
-        toast.error("Something went wrong, blog not deleted");
+    const myToken = JSON.parse(localStorage.getItem("user")).data.token;
+    const configuration = {
+      headers: {
+        authorization: `Bearer ${myToken}`,
+      },
+    };
+    if (user) {
+      if (window.confirm("Are you sure to delete???")) {
+        const response = await axios.delete(
+          `${process.env.REACT_APP_BE_URL}/posts/${_id}`,
+          configuration
+        );
+        if (response.status === 200) {
+          toast.success("Deleted successfully");
+          loadBlogsData(0, 5, 0, "delete");
+        } else {
+          toast.error("Something went wrong, blog not deleted");
+        }
       }
+    } else {
+      navigate("/login");
     }
   };
 
@@ -113,7 +130,7 @@ export default function Home() {
     e.preventDefault();
 
     const response = await axios.get(
-      `http://localhost:5000/posts?q=${searchValue}`
+      `${process.env.REACT_APP_BE_URL}/posts?q=${searchValue}`
     );
 
     if (response.status === 200) {
@@ -127,7 +144,7 @@ export default function Home() {
   // get the data using axios according to the category in the URL
   const handleCategory = async (category) => {
     const response = await axios.get(
-      `http://localhost:5000/posts/?category=${category}`
+      `${process.env.REACT_APP_BE_URL}/posts/?category=${category}`
     );
     console.log(response.data);
     if (response.status === 200) {

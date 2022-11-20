@@ -31,12 +31,28 @@ export default function SingleBlog() {
 
   //to get the single Blog using the id from useParams in the URL
   const getSingleBlog = async () => {
-    const response = await axios.get(`http://localhost:5000/posts/${id}`);
-
-    const relatedPostData = await axios.get(
-      `http://localhost:5000/posts/?category=${response.data.category}&_start=0&_end=4`
+    const response = await axios.get(
+      `${process.env.REACT_APP_BE_URL}/posts/${id}`,
+      {
+        headers: {
+          authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).data.token
+          }`,
+        },
+      }
     );
-    console.log(relatedPostData);
+    //console.log("realated post category", response.data.category);
+    const relatedPostData = await axios.get(
+      `${process.env.REACT_APP_BE_URL}/posts?category=${response.data.category}&_catStart=0&_catEnd=4`,
+      {
+        headers: {
+          authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).data.token
+          }`,
+        },
+      }
+    );
+    console.log(relatedPostData.data);
     //setting the related post by passing the category in the URL
     setRelatedPost(relatedPostData.data);
     if (response.status === 200 || relatedPostData.status === 200) {
@@ -46,7 +62,6 @@ export default function SingleBlog() {
       toast.error("something went wrong");
     }
   };
-  console.log(relatedPost);
 
   //to set the styleInfo for the badge
   //to give each category style and color

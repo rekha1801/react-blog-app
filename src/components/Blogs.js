@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   MDBBtn,
   MDBCard,
@@ -11,8 +11,10 @@ import {
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import Badge from "../components/Badge";
+import { Context } from "../context/Context.js";
 
 export default function Blogs({
+  email,
   title,
   description,
   category,
@@ -21,6 +23,12 @@ export default function Blogs({
   excerpt,
   handleDelete,
 }) {
+  const { user } = useContext(Context);
+  //const { _id } = useParams();
+  console.log("email of blog is : ", email);
+  //console.log("User details", user?.data.email);
+
+  //const response = axios.get(`${process.env.REACT_APP_BE_URL}/posts/${_id}`);
   //JSX To create the cards and
   //display title,description, badge, delete and update icons.
   return (
@@ -36,7 +44,7 @@ export default function Blogs({
           <MDBCardTitle>{title}</MDBCardTitle>
           <MDBCardText>
             {excerpt(description)}
-            <Link to={`/blog/${_id}`}>Read More</Link>
+            {user && <Link to={`/blog/${_id}`}>Read More</Link>}
           </MDBCardText>
           <Badge>{category}</Badge>
           <span>
@@ -45,6 +53,7 @@ export default function Blogs({
               tag="a"
               color="none"
               onClick={() => handleDelete(_id)}
+              style={{ pointerEvents: user?.data.email !== email && "none" }}
             >
               <MDBIcon
                 fas
@@ -53,7 +62,11 @@ export default function Blogs({
                 size="lg"
               />
             </MDBBtn>
-            <Link to={`/editblog/${_id}`}>
+
+            <Link
+              to={`/editblog/${_id}`}
+              style={{ pointerEvents: user?.data.email !== email && "none" }}
+            >
               <MDBIcon
                 fas
                 icon="edit"

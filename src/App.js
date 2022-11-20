@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Routes, BrowserRouter, Route, NavLink } from "react-router-dom";
 import Home from "./pages/Home";
 import AddEdit from "./pages/AddEdit";
@@ -8,8 +8,7 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import Login from "./pages/Login";
-// import { signOut } from "firebase/auth";
+
 import {
   MDBNavbar,
   MDBContainer,
@@ -19,27 +18,32 @@ import {
   MDBNavbarToggler,
   MDBNavbarBrand,
   MDBCollapse,
+  MDBCol,
+  MDBBtn,
 } from "mdb-react-ui-kit";
-// import { auth } from "./firebase";
-// import CreatePost from "./pages/CreatePost";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import { Context } from "./context/Context";
 
 function App() {
   const [show, setShow] = useState(false);
-  // const [isAuth, setIsAuth] = useState(false);
+  const { user, dispatch } = useContext(Context);
 
-  // const signUserOut = () => {
-  //   signOut(auth).then(() => {
-  //     localStorage.clear();
-  //     setIsAuth(false);
-  //     window.location.pathname = "/login";
-  //   });
-  // };
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+  };
+  console.log(user?.data);
   return (
     <BrowserRouter>
       <div className="App">
-        <h2>React-Blog-App</h2>
+        <h2>Blogs</h2>
         <div>
-          <MDBNavbar expand="lg" light style={{ backgroundColor: "#8bc34a" }}>
+          <MDBNavbar
+            expand="lg"
+            id="navbarRightAlignExample"
+            light
+            style={{ backgroundColor: "#4C8184" }}
+          >
             <MDBContainer fluid>
               <MDBNavbarBrand href="/">
                 <img
@@ -52,6 +56,13 @@ function App() {
                   }}
                 />
               </MDBNavbarBrand>
+              <MDBNavbarNav className="ms-auto mb-2 mb-lg-0 d-flex input-group w-auto">
+                <MDBNavbarItem className="active px-5">
+                  <h5>
+                    Welcome {user?.data.photo} {user?.data.username}!
+                  </h5>
+                </MDBNavbarItem>
+              </MDBNavbarNav>
               <MDBNavbarToggler
                 type="button"
                 data-target="#navbarColor02"
@@ -63,45 +74,107 @@ function App() {
               >
                 <MDBIcon icon="bars" fas />
               </MDBNavbarToggler>
+
               <MDBCollapse show={setShow} navbar>
-                <MDBNavbarNav className="me-auto mb-2 mb-lg-0">
-                  <MDBNavbarItem className="active">
+                <MDBNavbarNav className="ms-auto mb-2 mb-lg-0 d-flex input-group w-auto">
+                  {/* <MDBNavbarItem className="active px-5">
+                    {user?.data.photo} <h3>Welcome</h3>
+                    {user?.data.username}
+                  </MDBNavbarItem> */}
+                  <MDBNavbarItem className="active px-3 me-2">
                     <NavLink
                       aria-current="page"
                       to="/"
-                      style={{ color: "#fff", padding: "10px" }}
+                      style={{
+                        color: "#fff",
+                        padding: "10px",
+                      }}
                     >
-                      Home
+                      HOME
                     </NavLink>
                   </MDBNavbarItem>
-                  {/* <MDBNavbarItem>
-                    {!isAuth ? (
-                      <NavLink
-                        to="/login"
-                        style={{ color: "#fff", padding: "10px" }}
-                      >
-                        Login
-                      </NavLink>
-                    ) : (
-                      <button onClick={signUserOut}>LogOut</button>
-                    )}
-                  </MDBNavbarItem> */}
                   <MDBNavbarItem>
                     <NavLink
                       to="/addblog"
-                      style={{ color: "#fff", padding: "10px" }}
+                      style={{
+                        color: "#fff",
+                        padding: "10px",
+                      }}
                     >
-                      Add Blog
+                      ADD BLOG
                     </NavLink>
                   </MDBNavbarItem>
                   <MDBNavbarItem>
                     <NavLink
                       to="/about"
-                      style={{ color: "#fff", padding: "10px" }}
+                      style={{
+                        color: "#fff",
+                        padding: "10px",
+                      }}
                     >
-                      About
+                      ABOUT
                     </NavLink>
                   </MDBNavbarItem>
+                  {user ? (
+                    <MDBNavbarItem>
+                      <MDBCol size="3">
+                        <NavLink
+                          to="/login"
+                          style={{
+                            color: "#fff",
+                            padding: "10px",
+                          }}
+                        >
+                          <MDBBtn
+                            style={{
+                              color: "#fff",
+                              padding: "10px",
+                              marginRight: "80px",
+                              backgroundColor: "#4C8184",
+                            }}
+                            onClick={handleLogout}
+                          >
+                            LOGOUT
+                          </MDBBtn>
+                        </NavLink>
+                      </MDBCol>
+                    </MDBNavbarItem>
+                  ) : (
+                    <>
+                      <MDBNavbarItem>
+                        <MDBCol size="3">
+                          <NavLink to="/login">
+                            <MDBBtn
+                              style={{
+                                color: "#fff",
+                                padding: "10px",
+                                marginLeft: "30px",
+                                backgroundColor: "#4C8184",
+                              }}
+                            >
+                              LOGIN
+                            </MDBBtn>
+                          </NavLink>
+                        </MDBCol>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBCol size="3">
+                          <NavLink to="/register">
+                            <MDBBtn
+                              style={{
+                                color: "#fff",
+                                padding: "10px",
+                                marginLeft: "30px",
+                                backgroundColor: "#4C8184",
+                              }}
+                            >
+                              REGISTER
+                            </MDBBtn>
+                          </NavLink>
+                        </MDBCol>
+                      </MDBNavbarItem>
+                    </>
+                  )}
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBContainer>
@@ -110,8 +183,13 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/addblog" element={<AddEdit />} />
-          <Route path="/editblog/:id" element={<AddEdit />} />
+          <Route path="/login" element={user ? <Home /> : <Login />} />
+          <Route path="/register" element={user ? <Home /> : <Register />} />
+          <Route path="/addblog" element={user ? <AddEdit /> : <Login />} />
+          <Route
+            path="/editblog/:id"
+            element={user ? <AddEdit /> : <Login />}
+          />
           <Route path="/blog/:id" element={<SingleBlog />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
