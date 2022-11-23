@@ -31,9 +31,9 @@ app.use(cors());
 //specific files as static.  For the reason we are using express.static
 app.use(express.static(path.join(__dirname, "../build")));
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello world");
+// });
 
 app.use("/auth", authRouter);
 app.use("/posts", postRouter);
