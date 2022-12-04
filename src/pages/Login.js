@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Context } from "../context/Context.js";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -11,6 +11,7 @@ export default function Login() {
   //const emailRef = useRef();
   //const passwordRef = useRef();
   const { user, dispatch, isFetching } = useContext(Context);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +30,7 @@ export default function Login() {
       if (res.data) {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
         localStorage.setItem("user", JSON.stringify(res.data.data.token));
+        navigate("/");
       }
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });
@@ -37,58 +39,67 @@ export default function Login() {
   };
   console.log(user);
   return (
-    <form
-      className="mt-5 w-25 align-items-center mx-auto position-relative"
-      onSubmit={handleSubmit}
-    >
-      <div className="position-absolute start-100 top-0">
+    <div>
+      <form
+        className="mt-5 w-25 align-items-center mx-auto position-relative"
+        onSubmit={handleSubmit}
+      >
+        <p className="fs-3 mt-10">LOGIN</p>
+        <MDBInput
+          className="mb-4  align-items-center justify-content-center w-200px"
+          type="email"
+          name="email"
+          id="formEmail"
+          label="Email address"
+          //ref={emailRef}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <MDBInput
+          className="mb-4"
+          type="password"
+          name="password"
+          id="formPassword"
+          label="Password"
+          //ref={passwordRef}
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
         <MDBBtn
+          color="success"
           type="submit"
           block
-          style={{ backgroundColor: "rgba(249, 49, 84, 0.6)" }}
+          style={{ backgroundColor: "rgba(57, 192, 237, 0.6)" }}
+          disabled={isFetching}
         >
+          Login
+        </MDBBtn>
+      </form>
+
+      <div>
+        <p>
           <NavLink
-            to="/register"
+            to="/forgotpassword"
             style={{
-              color: "#fff",
+              color: "steelblue",
               padding: "10px",
-              marginRight: "10px",
             }}
           >
-            REGISTER
+            Forgot Password?
           </NavLink>
-        </MDBBtn>
+        </p>
       </div>
-      <p className="fs-3 mt-10">LOGIN</p>
-      <MDBInput
-        className="mb-4  align-items-center justify-content-center w-200px"
-        type="email"
-        name="email"
-        id="formEmail"
-        label="Email address"
-        //ref={emailRef}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <MDBInput
-        className="mb-4"
-        type="password"
-        name="password"
-        id="formPassword"
-        label="Password"
-        //ref={passwordRef}
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
-      <MDBBtn
-        color="success"
-        type="submit"
-        block
-        style={{ backgroundColor: "rgba(57, 192, 237, 0.6)" }}
-        disabled={isFetching}
-      >
-        Login
-      </MDBBtn>
-    </form>
+      <div>
+        <NavLink
+          to="/register"
+          style={{
+            color: "blue",
+            padding: "20px",
+          }}
+        >
+          Don't have an account? Register!
+        </NavLink>
+      </div>
+    </div>
   );
 }

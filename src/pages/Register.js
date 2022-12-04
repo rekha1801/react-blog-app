@@ -8,6 +8,7 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [photo, setPhoto] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function Register() {
           username,
           email,
           password,
+          passwordConfirm,
           photo,
         }
       );
@@ -63,6 +65,7 @@ export default function Register() {
         id="formUsername"
         label="Username"
         onChange={(e) => setUsername(e.target.value)}
+        value={username}
       />
       <MDBInput
         className="mb-4  align-items-center justify-content-center w-200px"
@@ -70,6 +73,7 @@ export default function Register() {
         id="formEmail"
         label="Email address"
         onChange={(e) => setEmail(e.target.value)}
+        value={email}
       />
       <MDBInput
         className="mb-4"
@@ -77,6 +81,15 @@ export default function Register() {
         id="formPassword"
         label="Password"
         onChange={(e) => setPassword(e.target.value)}
+        value={password}
+      />
+      <MDBInput
+        className="mb-4"
+        type="password"
+        id="formPasswordConfirm"
+        label="Password Confirm"
+        onChange={(e) => setPasswordConfirm(e.target.value)}
+        value={passwordConfirm}
       />
       <div
         style={{

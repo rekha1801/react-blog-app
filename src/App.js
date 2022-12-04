@@ -21,9 +21,11 @@ import {
   MDBCol,
   MDBBtn,
 } from "mdb-react-ui-kit";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import { Context } from "./context/Context";
+import Login from "./pages/Login.js";
+import Register from "./pages/Register.js";
+import { Context } from "./context/Context.js";
+import ForgotPassword from "./pages/ForgotPassword.js";
+import ResetPassword from "./pages/ResetPassword.js";
 
 function App() {
   const [show, setShow] = useState(false);
@@ -31,6 +33,7 @@ function App() {
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
+    localStorage.removeItem("user");
   };
   console.log(user?.data);
   return (
@@ -58,9 +61,7 @@ function App() {
               </MDBNavbarBrand>
               <MDBNavbarNav className="ms-auto mb-2 mb-lg-0 d-flex input-group w-auto">
                 <MDBNavbarItem className="active px-5">
-                  <h5>
-                    Welcome {user?.data.photo} {user?.data.username}!
-                  </h5>
+                  <h5>Welcome {user?.data.username}!</h5>
                 </MDBNavbarItem>
               </MDBNavbarNav>
               <MDBNavbarToggler
@@ -192,6 +193,8 @@ function App() {
           />
           <Route path="/blog/:id" element={<SingleBlog />} />
           <Route path="/about" element={<About />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/resetpassword/:token" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
