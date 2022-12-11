@@ -1,27 +1,25 @@
-
-version: "3.5"
 services:
-  web-fe:
-    build: .
-    command: npm start
-    ports:
-      - target: 3000
-        published: 3001
-    networks:
-      - counter-net
-  jserver:
+  blogfrontend:
     build:
-        context: .
-        dockerfile: server.Dockerfile
-    command: db.json
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - target: 8080
-        published: 3000
-    networks:
-      counter-net:
-
-networks:
-  counter-net:
-
-volumes:
-  counter-vol:
+      - "3000:3000"
+    # depends_on:
+    #   - db
+  blogbackend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5555:5555"
+#     depends_on:
+#       - db
+#   db:
+#     volumes:
+#       - blogDB:/data/db
+#     image: mongo:latest
+#     ports:
+#       - "27017:27017"
+# volumes:
+#   blogDB:

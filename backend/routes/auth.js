@@ -2,17 +2,23 @@ import express from "express";
 import UserMessages from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import {
+  forgotPassword,
+  logout,
+  resetPassword,
+} from "../controller/authController.js";
 
 const router = express.Router();
 
 //REgister
 router.post("/register", async (req, res, next) => {
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  //const salt = await bcrypt.genSalt(10);
+  //const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const newUser = await new UserMessages({
     username: req.body.username,
     email: req.body.email,
-    password: hashedPassword,
+    password: req.body.password,
+    passwordConfirm: req.body.passwordConfirm,
     photo: req.body.photo,
   });
   const user = await newUser.save();
@@ -76,5 +82,8 @@ router.post("/login", async (req, res, next) => {
     res.status(500).json(err);
   }
 });
+router.post("/logout", logout);
+router.post("/forgotpassword", forgotPassword);
+router.patch("/resetpassword/:token", resetPassword);
 
 export default router;
