@@ -35,7 +35,7 @@ function App() {
     dispatch({ type: "LOGOUT" });
     localStorage.removeItem("user");
   };
-  console.log(user?.data);
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -78,10 +78,6 @@ function App() {
 
               <MDBCollapse show={setShow} navbar>
                 <MDBNavbarNav className="ms-auto mb-2 mb-lg-0 d-flex input-group w-auto">
-                  {/* <MDBNavbarItem className="active px-5">
-                    {user?.data.photo} <h3>Welcome</h3>
-                    {user?.data.username}
-                  </MDBNavbarItem> */}
                   <MDBNavbarItem className="active px-3 me-2">
                     <NavLink
                       aria-current="page"

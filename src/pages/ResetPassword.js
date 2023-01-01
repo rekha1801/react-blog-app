@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-import FileBase64 from "react-file-base64";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function ResetPassword() {

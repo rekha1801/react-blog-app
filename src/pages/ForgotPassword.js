@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
-import { NavLink, useNavigate } from "react-router-dom";
-import FileBase64 from "react-file-base64";
 import axios from "axios";
 
 export default function ForgotPassword() {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [photo, setPhoto] = useState("");
   const [error, setError] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
+      await axios.post(
         `https://react-blog-app-backend.onrender.com/auth/forgotpassword`,
         {
           email,
