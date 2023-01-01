@@ -35,7 +35,7 @@ export default function AddEdit() {
 
   const getSingleBlog = async (id) => {
     const singleBlog = await axios.get(
-      `${process.env.REACT_APP_BE_URL}/posts/${id}`,
+      `https://react-blog-app-backend.onrender.com/posts/${id}`,
       {
         headers: {
           authorization: `Bearer ${
@@ -73,7 +73,7 @@ export default function AddEdit() {
       if (!edit) {
         const updatedBlogData = { ...formValue, date: currentDate };
         const response = await axios.post(
-          `${process.env.REACT_APP_BE_URL}/posts`,
+          `https://react-blog-app-backend.onrender.com/posts`,
           updatedBlogData,
           {
             headers: {
@@ -92,7 +92,7 @@ export default function AddEdit() {
       } else {
         console.log("inside else part of put");
         const response = await axios.put(
-          `${process.env.REACT_APP_BE_URL}/posts/${id}`,
+          `https://react-blog-app-backend.onrender.com/posts/${id}`,
           formValue,
           {
             headers: {

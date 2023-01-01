@@ -16,7 +16,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_BE_URL}/auth/forgotpassword`,
+        `https://react-blog-app-backend.onrender.com/auth/forgotpassword`,
         {
           email,
         }

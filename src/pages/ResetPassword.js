@@ -16,7 +16,7 @@ export default function ResetPassword() {
     e.preventDefault();
     try {
       const res = await axios.patch(
-        `${process.env.REACT_APP_BE_URL}/auth/resetpassword/${token}`,
+        `https://react-blog-app-backend.onrender.com/auth/resetpassword/${token}`,
         { password, passwordConfirm }
       );
       console.log(res.data);

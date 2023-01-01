@@ -32,7 +32,7 @@ export default function SingleBlog() {
   //to get the single Blog using the id from useParams in the URL
   const getSingleBlog = async () => {
     const response = await axios.get(
-      `${process.env.REACT_APP_BE_URL}/posts/${id}`,
+      `https://react-blog-app-backend.onrender.com/posts/${id}`,
       {
         headers: {
           authorization: `Bearer ${
@@ -43,7 +43,7 @@ export default function SingleBlog() {
     );
     //console.log("realated post category", response.data.category);
     const relatedPostData = await axios.get(
-      `${process.env.REACT_APP_BE_URL}/posts?category=${response.data.category}&_catStart=0&_catEnd=4`,
+      `https://react-blog-app-backend.onrender.com/posts?category=${response.data.category}&_catStart=0&_catEnd=4`,
       {
         headers: {
           authorization: `Bearer ${

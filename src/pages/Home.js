@@ -31,12 +31,13 @@ export default function Home() {
   }, []);
 
   const loadBlogsData = async (start, end, increase, operation) => {
-    const AllBlogs = await axios.get(`${process.env.REACT_APP_BE_URL}/posts`);
+    const AllBlogs = await axios.get(
+      `https://react-blog-app-backend.onrender.com/posts`
+    );
     console.log(AllBlogs.data);
     setTotalBlog(AllBlogs.data.length);
     const response = await axios.get(
-      //`http://localhost:5000/posts`
-      `${process.env.REACT_APP_BE_URL}/posts?_startpage=${start}&_endpage=${end}`
+      `https://react-blog-app-backend.onrender.com/posts?_startpage=${start}&_endpage=${end}`
     );
 
     if (response.status === 200) {
@@ -56,7 +57,9 @@ export default function Home() {
   //To fetch the latest blog data, get the total length of the blogs
   // and set the start and end in the url to get the last 4 blogs.
   const fetchLatestBlog = async () => {
-    const AllBlogs = await axios.get(`${process.env.REACT_APP_BE_URL}/posts`);
+    const AllBlogs = await axios.get(
+      `https://react-blog-app-backend.onrender.com/posts`
+    );
     //setTotalBlog(AllBlogs.data.length);
     const start = AllBlogs.data.length - 4;
     const end = AllBlogs.data.length;
@@ -66,7 +69,7 @@ export default function Home() {
 
     // again getting the blogs using the start and end query in the URL
     const response = await axios.get(
-      `${process.env.REACT_APP_BE_URL}/posts?_start=${start}&_end=${end}`
+      `https://react-blog-app-backend.onrender.com/posts?_start=${start}&_end=${end}`
     );
     console.log(response);
 
@@ -88,7 +91,7 @@ export default function Home() {
     if (user) {
       if (window.confirm("Are you sure to delete???")) {
         const response = await axios.delete(
-          `${process.env.REACT_APP_BE_URL}/posts/${_id}`,
+          `https://react-blog-app-backend.onrender.com/posts/${_id}`,
           configuration
         );
         if (response.status === 200) {
@@ -130,7 +133,7 @@ export default function Home() {
     e.preventDefault();
 
     const response = await axios.get(
-      `${process.env.REACT_APP_BE_URL}/posts?q=${searchValue}`
+      `https://react-blog-app-backend.onrender.com/posts?q=${searchValue}`
     );
 
     if (response.status === 200) {
@@ -144,7 +147,7 @@ export default function Home() {
   // get the data using axios according to the category in the URL
   const handleCategory = async (category) => {
     const response = await axios.get(
-      `${process.env.REACT_APP_BE_URL}/posts/?category=${category}`
+      `https://react-blog-app-backend.onrender.com/posts/?category=${category}`
     );
     console.log(response.data);
     if (response.status === 200) {

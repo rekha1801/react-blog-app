@@ -17,7 +17,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_BE_URL}/auth/register`,
+        `https://react-blog-app-backend.onrender.com/auth/register`,
         {
           username,
           email,
